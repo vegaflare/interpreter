@@ -55,19 +55,24 @@ func (ls *LetStatement) String() string {
 	var out string
 	out += ls.TokenLiteral() + " "
 	if ls.Name != nil {
-		out += ls.Value.Name
+		out += ls.Name.String()
 	}
+	out += "="
+	if ls.Value != nil {
+		out += ls.Value.String()
+	}
+	out += ";"
+	return out
 }
 
-type Identifier struct{
+type Identifier struct {
 	Token token.Token //token.Ident
 	Value string
 }
 
-
-func (i *Identifier) expressionNode(){}
-func (i *Identifier) TokenLiteral string{
+func (i *Identifier) expressionNode() {}
+func (i *Identifier) TokenLiteral() string {
 	return i.Token.Literal
 }
 
-func (i *Identifier) String() { return i.Value}
+func (i *Identifier) String() string { return i.Value }
