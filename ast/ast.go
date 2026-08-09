@@ -51,6 +51,7 @@ type LetStatement struct {
 func (ls *LetStatement) statementNode()       {}
 func (ls *LetStatement) TokenLiteral() string { return ls.Token.Literal }
 
+// returns the statement
 func (ls *LetStatement) String() string {
 	var out string
 	out += ls.TokenLiteral() + " "
@@ -66,7 +67,7 @@ func (ls *LetStatement) String() string {
 }
 
 type Identifier struct {
-	Token token.Token //token.Ident
+	Token token.Token //token.IDENT
 	Value string
 }
 
