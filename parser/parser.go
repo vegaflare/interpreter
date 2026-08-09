@@ -1,6 +1,7 @@
 package parser
 
 import (
+	"fmt"
 	"interpreter/ast"
 	"interpreter/lexer"
 	"interpreter/token"
@@ -29,11 +30,12 @@ func (p *Parser) nextToken() {
 }
 
 // Parse the whole program in a loop
-func (p *Parser) ParserProgram() *ast.Program {
+func (p *Parser) ParseProgram() *ast.Program {
 	program := &ast.Program{}
 	program.Statements = []ast.Statement{}
 
 	for p.curToken.Type != token.EOF {
+		fmt.Printf("Token Type: %q, Literal: %q\n", p.curToken.Type, p.curToken.Literal)
 		stmt := p.parseStatement()
 		if stmt != nil {
 			program.Statements = append(program.Statements, stmt)
@@ -71,8 +73,8 @@ func (p *Parser) parseLetStatement() *ast.LetStatement {
 
 	// TODO: need to parse VALUE here later
 	// For now skipping to SEMICOLON
-	if !p.expectPeek(token.SEMICOLON) {
-		return nil
+	for !p.curTokenIs(token.SEMICOLON) && !p.curTokenIs(token.EOF) {
+		p.nextToken()
 	}
 
 	return stmt
