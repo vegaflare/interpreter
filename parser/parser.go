@@ -162,6 +162,9 @@ func (p *Parser) parseLetStatement() *ast.LetStatement {
 	}
 
 	// TODO: need to parse VALUE here later
+	p.nextToken()
+
+	stmt.Value = p.parseExpression(LOWEST)
 	// For now skipping to SEMICOLON
 	for !p.curTokenIs(token.SEMICOLON) && !p.curTokenIs(token.EOF) {
 		p.nextToken()
